@@ -14,6 +14,7 @@ const store = configureStore({
 });
 
 // export const server = "http://localhost:4000/api/v1";
-export const server = "https://icart-nz2x.onrender.com/api/v1";
+// export const server = "https://icart-nz2x.onrender.com/api/v1";
+export const server = "https://i-cart-backend.vercel.app/api/v1";
 
 export default store;
