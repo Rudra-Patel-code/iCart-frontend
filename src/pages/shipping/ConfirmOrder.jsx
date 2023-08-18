@@ -57,7 +57,7 @@ const ConfirmOrder = () => {
       image:
         "https://res.cloudinary.com/di2nyulhu/image/upload/v1691672779/logo_wasexn.jpg",
       order_id: order.id,
-      callback_url: "http://localhost:4000/api/v1/order/verify/payment",
+      callback_url: `${server}/order/verify/payment`,
       prefill: {
         name: user.name,
         email: user.email,
