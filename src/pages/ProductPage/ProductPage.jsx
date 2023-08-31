@@ -10,13 +10,17 @@ import {
 import Header from "../../Layout/Header";
 import { toast } from "react-hot-toast";
 import GoBack from "../../Layout/Components/GoBack";
+import { addToCart as addToCartAction } from "../../redux/actions/cartaction";
+import { FaSpinner } from "react-icons/fa";
 
 // Define a custom component for displaying a single review
 const Review = ({ review }) => {
   return (
     <div className="flex flex-col bg-white p-4 rounded-lg shadow-md">
       <div className="flex items-center mb-2">
-        <h4 className="text-sm text-slate-400">- {review.user.name}</h4>
+        <h4 className="text-sm text-slate-400">
+          - {review.user.name || "User"}
+        </h4>
       </div>
       <div className="flex items-center mb-2">
         <ReactStars
@@ -47,6 +51,12 @@ const ProductPage = () => {
   } = useSelector((state) => state.product);
   const dispatch = useDispatch();
 
+  const {
+    addLoading,
+    message: cartMessage,
+    error: cartError,
+  } = useSelector((state) => state.cart);
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -58,11 +68,20 @@ const ProductPage = () => {
       toast.success(message);
       dispatch({ type: "clearMessage" });
     }
+
+    if (cartMessage) {
+      toast.success(cartMessage);
+      dispatch({ type: "clearMessage" });
+    }
     if (error) {
       toast.error(error);
       dispatch({ type: "clearError" });
     }
-  }, [error, message, dispatch]);
+    if (cartError) {
+      toast.error(cartError);
+      dispatch({ type: "clearError" });
+    }
+  }, [error, message, cartError, cartMessage, dispatch]);
 
   // Define a local state for storing the user's rating and comment
   const [rating, setRating] = useState(0);
@@ -75,6 +94,10 @@ const ProductPage = () => {
     dispatch(getSingleProduct(id));
     setRating(0);
     setComment("");
+  };
+
+  const addToCart = () => {
+    dispatch(addToCartAction(id));
   };
 
   return (
@@ -126,8 +149,18 @@ const ProductPage = () => {
                     ${product?.price}
                   </span>
                 </div>
-                <button className="bg-purple-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50">
-                  Add to cart
+                <button
+                  disabled={addLoading ? true : false}
+                  onClick={addToCart}
+                  className="bg-purple-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50"
+                >
+                  {addLoading ? (
+                    <span>
+                      <FaSpinner className="animate-spin" />
+                    </span>
+                  ) : (
+                    <>Add To Cart</>
+                  )}
                 </button>
               </div>
             </div>
