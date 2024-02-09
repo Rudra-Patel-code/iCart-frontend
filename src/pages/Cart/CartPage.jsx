@@ -20,7 +20,7 @@ const Cart = () => {
   const getTotalPrice = () => {
     let totalAmount = 0;
     for (let item of cartItems) {
-      totalAmount += item.product.price * item.quantity;
+      totalAmount += item.product?.price * item.quantity;
     }
 
     return totalAmount;
