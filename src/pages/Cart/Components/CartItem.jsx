@@ -2,25 +2,26 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { FaSpinner } from "react-icons/fa";
 
 const CartItem = ({ item, deleteCartItem, deleteLoading, deletignItemId }) => {
-  const { title: name, totalRatings, price, image } = item?.product;
+  // const { title: name, totalRatings, price, image } = item?.product;
+  const product = item?.product
   const quantity = item?.quantity;
 
   return (
     <div className="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
       <img
         className="object-cover w-20 h-20 mr-4 rounded-full"
-        src={image.url}
-        alt={name}
+        src={product?.image.url}
+        alt={product?.name}
       />
       <div className="flex flex-col justify-between flex-1">
         <h3 className="mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
-          {name}
+          {product?.name}
         </h3>
         <p className="text-xs font-normal text-gray-500 dark:text-gray-400">
-          {totalRatings} / 5 stars
+          {product?.totalRatings} / 5 stars
         </p>
         <p className="text-base font-semibold text-gray-700 dark:text-gray-200">
-          ₹ {price}
+          ₹ {product?.price}
         </p>
       </div>
 
