@@ -17,13 +17,14 @@ const Cart = () => {
   } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const getTotalPrice = () => {
+  
+  const getTotalPrice = (_cartItems) => {
     let totalAmount = 0;
-    for (let item of cartItems) {
-      totalAmount += item.product?.price * item.quantity;
+    for (let item of _cartItems) {
+      totalAmount += item?.product?.price * item?.quantity;
     }
 
-    return totalAmount;
+    return totalAmount || 0;
   };
 
   const proceedToCheckout = () => {
@@ -77,7 +78,7 @@ const Cart = () => {
 
           <div className="flex flex-col items-center justify-center p-8 bg-white rounded-lg shadow-lg mt-8">
             <p className="text-2xl font-medium text-gray-700">
-              Total: ${getTotalPrice()}
+              Total: ${getTotalPrice(cartItem)}
             </p>
 
             <button
