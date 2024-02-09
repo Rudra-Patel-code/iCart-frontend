@@ -2,8 +2,8 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { FaSpinner } from "react-icons/fa";
 
 const CartItem = ({ item, deleteCartItem, deleteLoading, deletignItemId }) => {
-  const { title: name, totalRatings, price, image } = item.product;
-  const quantity = item.quantity;
+  const { title: name, totalRatings, price, image } = item?.product;
+  const quantity = item?.quantity;
 
   return (
     <div className="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
